@@ -3,411 +3,121 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nosso Cantinho</title>
-  <style>
-    /* ========= Estilo principal (roxo + azul suave) ========= */
-    :root{
-      --bg1: #e9e6ff;
-      --bg2: #e6f0ff;
-      --accent1: #7b61ff; /* roxo suave */
-      --accent2: #6fb3ff; /* azul suave */
-      --card: rgba(255,255,255,0.9);
-      --glass: rgba(255,255,255,0.55);
-      --shadow: 0 6px 18px rgba(20,20,50,0.08);
-    }
-    *{box-sizing:border-box}
-    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background: linear-gradient(135deg,var(--bg1),var(--bg2)); color:#1b1b2f;}
-    .container{max-width:1000px;margin:28px auto;padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
-    h1{margin:0;font-size:1.6rem}
-    nav{display:flex;gap:8px}
-    .btn{background:var(--card);padding:8px 12px;border-radius:10px;border:0;cursor:pointer;box-shadow:var(--shadow)}
-
-    /* Layout de seções */
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px;margin-top:18px}
-    .card{background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
-
-    /* Timeline */
-    .timeline{display:flex;flex-direction:column;gap:10px}
-    .event{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(250,250,255,0.95));}
-    .event h4{margin:0}
-
-    /* Gallery */
-    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .media-thumb{position:relative;overflow:hidden;border-radius:10px;background:#f5f6fb;height:110px;display:flex;align-items:center;justify-content:center}
-    .media-thumb img,.media-thumb video{width:100%;height:100%;object-fit:cover}
-    .thumb-actions{position:absolute;right:6px;top:6px;display:flex;gap:6px}
-    .icon-btn{background:rgba(255,255,255,0.8);border-radius:8px;padding:6px;border:0}
-
-    /* Modal */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(12,12,30,0.35),rgba(12,12,30,0.55));padding:20px}
-    .modal.show{display:flex}
-    .viewer{max-width:900px;width:100%;background:var(--card);border-radius:12px;overflow:hidden}
-    .viewer media, .viewer img{width:100%}
-
-    /* Letter */
-    .letter{min-height:140px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(249,245,255,0.95))}
-    .typewriter{font-family:Georgia, 'Times New Roman', serif}
-
-    /* Stars */
-    .stars-wrap{height:220px;position:relative;background:linear-gradient(180deg,#f6f8ff,#eef6ff);border-radius:10px}
-    .star{position:absolute;width:18px;height:18px;background:radial-gradient(circle,#fff,#ffd);border-radius:50%;box-shadow:0 0 12px rgba(255,220,120,0.8);cursor:pointer}
-
-    /* Game */
-    .game-input{display:flex;gap:8px}
-
-    /* Responsivo */
-    @media(max-width:900px){.grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(2,1fr)}.brand h1{font-size:1.2rem}}
-  </style>
+  <title>Nosso Cantinho — Vitor & Vithorya</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">NC</div>
-        <div>
-          <h1>Nosso Cantinho</h1>
-          <small style="opacity:0.7">Roxo + Azul suave • Sua experiência romântica</small>
-        </div>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand"><div class="logo">NC</div>
+        <div class="titles"><h1>Nosso Cantinho</h1><small>Vitor &amp; Vithorya</small></div>
       </div>
       <nav>
-        <button class="btn" onclick="showSection('home')">Início</button>
-        <button class="btn" onclick="showSection('gallery')">Galeria</button>
-        <button class="btn" onclick="showSection('timeline')">Linha do Tempo</button>
-        <button class="btn" onclick="showSection('letter')">Carta</button>
-        <button class="btn" onclick="showSection('stars')">Memórias</button>
-        <button class="btn" onclick="showSection('game')">Joguinho</button>
+        <button onclick="showSection('home')">Início</button>
+        <button onclick="showSection('gallery')">Galeria</button>
+        <button onclick="showSection('timeline')">Linha do Tempo</button>
+        <button onclick="showSection('letter')">Carta</button>
+        <button onclick="showSection('stars')">Memórias</button>
+        <button onclick="showSection('game')">Joguinho</button>
       </nav>
     </header>
 
-    <!-- PASSWORD GATE -->
-    <div id="passwordGate" class="card" style="margin-top:18px">
-      <h3>Bem-vinda(o) — Digite a senha para entrar</h3>
-      <p style="opacity:0.8">A senha é uma surpresa que representa vocês.</p>
-      <input id="pwdInput" placeholder="Coloque a senha" style="padding:10px;border-radius:8px;border:1px solid #ddd;width:180px" />
-      <button class="btn" style="margin-left:8px" onclick="checkPwd()">Entrar</button>
-      <div style="margin-top:8px;opacity:0.7">Dica: a data do relacionamento.</div>
-    </div>
-
-    <div id="mainContent" style="display:none">
-      <div class="grid">
-        <div>
-          <!-- HOME -->
-          <section id="home" class="card" style="display:block">
-            <h2>Olá ❤️</h2>
-            <p class="typewriter" id="homePhrase" style="font-size:1.1rem">Um lugar feito por mim, para você. Clique nos botões acima para navegar.</p>
-            <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
-              <button class="btn" onclick="randomLove()">Motivo do dia para te amar</button>
-              <button class="btn" onclick="document.getElementById('musicToggle').click()">Tocar música</button>
-              <label style="margin-left:auto;opacity:0.8">Modo escuro: <input type="checkbox" id="darkMode" onchange="toggleDark(this.checked)" /></label>
-            </div>
-            <audio id="bgAudio" controls style="margin-top:12px;width:100%">
-              <source src="/mnt/data/the weeknd - earned it _tradução_legendado [RnaK6FTVa58].mp3" type="audio/mpeg">
-              Seu navegador não suporta áudio embutido.
-            </audio>
-            <button id="musicToggle" style="display:none" onclick="playAudio()"></button>
-          </section>
-
-          <!-- GALLERY -->
-          <section id="gallery" class="card" style="display:none;margin-top:16px">
-            <h3>Galeria</h3>
-            <p style="opacity:0.8">Adicione fotos e vídeos reais. Eles ficam salvos no seu navegador (localStorage). Para colocar permanentemente, suba para o repositório.</p>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input id="fileInput" type="file" multiple accept="image/*,video/*" />
-              <button class="btn" onclick="loadFromLocal()">Carregar do armazenamento</button>
-              <button class="btn" onclick="clearGallery()">Limpar galeria</button>
-            </div>
-            <div style="margin-top:12px" class="gallery-grid" id="galleryGrid"></div>
-          </section>
-
-          <!-- TIMELINE -->
-          <section id="timeline" class="card" style="display:none;margin-top:16px">
-            <h3>Linha do Tempo</h3>
-            <div class="timeline" id="timelineList"></div>
-            <div style="margin-top:10px;display:flex;gap:8px">
-              <input id="eventText" placeholder="Nova memória (ex: primeiro beijo, 01/01/2020)" style="flex:1;padding:8px;border-radius:8px;border:1px solid #ddd" />
-              <button class="btn" onclick="addEvent()">Adicionar</button>
-            </div>
-          </section>
-
-          <!-- LETTER -->
-          <section id="letter" class="card" style="display:none;margin-top:16px">
-            <h3>Carta Interativa</h3>
-            <p style="opacity:0.8">Mova o mouse para ver partículas, clique para revelar mensagens.</p>
-            <div class="letter" id="letterBox">
-              <div id="letterContent">Clique aqui para começar a ler a carta...</div>
-            </div>
-            <div style="margin-top:8px;display:flex;gap:8px">
-              <textarea id="letterInput" placeholder="Escreva sua carta aqui..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ddd;height:80px"></textarea>
-              <button class="btn" onclick="saveLetter()">Salvar carta</button>
-            </div>
-          </section>
-
-          <!-- STARS -->
-          <section id="stars" class="card" style="display:none;margin-top:16px">
-            <h3>Céu das Memórias</h3>
-            <div class="stars-wrap" id="starsWrap"></div>
-            <div style="margin-top:8px;opacity:0.8">Clique nas estrelas para ver as memórias.</div>
-          </section>
-
-          <!-- GAME -->
-          <section id="game" class="card" style="display:none;margin-top:16px">
-            <h3>Joguinho: Adivinhe a palavra</h3>
-            <p style="opacity:0.85">Dica: é uma palavra curta e doce.</p>
-            <div class="game-input">
-              <input id="guessInput" placeholder="Digite a palavra" style="padding:8px;border-radius:8px;border:1px solid #ddd;flex:1" />
-              <button class="btn" onclick="checkGuess()">Tentar</button>
-            </div>
-            <div id="gameMsg" style="margin-top:8px;opacity:0.8"></div>
-          </section>
+    <main>
+      <!-- Password gate -->
+      <section id="gate" class="card center">
+        <h2>Bem-vinda(o)</h2>
+        <p>Digite a senha para entrar no nosso cantinho.</p>
+        <input id="pwd" placeholder="Senha (ex: 18/11)" />
+        <div class="row">
+          <button class="primary" onclick="unlock()">Entrar</button>
+          <button onclick="openHint()">Dica</button>
         </div>
+      </section>
 
-        <!-- RIGHT COLUMN -->
-        <aside>
-          <div class="card">
-            <h4>Sobre</h4>
-            <p style="opacity:0.8">Nosso Cantinho — um site romântico, leve, feito para impressionar com lembranças e interatividade.</p>
-            <hr />
-            <h4>Download da música</h4>
-            <p style="opacity:0.8">A música está embutida (arquivo enviado).</p>
-            <a class="btn" href="/mnt/data/the weeknd - earned it _tradução_legendado [RnaK6FTVa58].mp3" download>Baixar música</a>
+      <!-- Main content -->
+      <div id="app" style="display:none">
+        <section id="home" class="card">
+          <div class="hero">
+            <div class="hero-text">
+              <h2>Um lugar só nosso</h2>
+              <p id="phrase">Pequenas memórias, grandes sentimentos.</p>
+              <div class="row">
+                <button class="primary" onclick="randomLove()">Motivo do dia</button>
+                <button onclick="toggleAudio()">Tocar música</button>
+                <label class="switch">Modo escuro<input id="darkToggle" type="checkbox" onchange="toggleDark(this.checked)"><span class="slider"></span></label>
+              </div>
+            </div>
+            <div class="hero-art">
+              <div class="floating">♥</div>
+            </div>
           </div>
 
-          <div class="card" style="margin-top:12px">
-            <h4>Atalhos</h4>
-            <button class="btn" onclick="showSection('gallery')">Ver Galeria</button>
-            <button class="btn" onclick="showSection('timeline')">Ver Linha do Tempo</button>
+          <audio id="bg" src="assets/media/Vitor_e_Vithorya.mp3" preload="auto"></audio>
+        </section>
+
+        <section id="gallery" class="card" style="display:none">
+          <h3>Galeria</h3>
+          <p class="muted">Envie fotos e vídeos. Eles ficam salvos no seu navegador (localStorage). Para tornar permanente, coloque em <code>assets/media/</code>.</p>
+          <div class="controls">
+            <input id="file" type="file" accept="image/*,video/*" multiple />
+            <button onclick="loadGallery()">Carregar</button>
+            <button onclick="clearGallery()">Limpar</button>
           </div>
-        </aside>
+          <div id="grid" class="grid"></div>
+        </section>
+
+        <section id="timeline" class="card" style="display:none">
+          <h3>Linha do Tempo</h3>
+          <div id="timelineList" class="timeline"></div>
+          <div class="row">
+            <input id="evtext" placeholder="Nova memória (ex: Primeiro beijo, 18/11)" />
+            <button class="primary" onclick="addEvent()">Adicionar</button>
+          </div>
+        </section>
+
+        <section id="letter" class="card" style="display:none">
+          <h3>Carta Interativa</h3>
+          <div class="letter" id="letterBox" onclick="revealLetter()">
+            <div id="letterContent">Escreva sua carta ao lado e clique aqui para revelar.</div>
+          </div>
+          <textarea id="letterInput" placeholder="Escreva sua carta..."></textarea>
+          <div class="row">
+            <button class="primary" onclick="saveLetter()">Salvar carta</button>
+            <button onclick="clearLetter()">Limpar</button>
+          </div>
+        </section>
+
+        <section id="stars" class="card" style="display:none">
+          <h3>Céu das Memórias</h3>
+          <div id="starsWrap" class="stars"></div>
+          <p class="muted">Clique nas estrelas para abrir memórias.</p>
+        </section>
+
+        <section id="game" class="card" style="display:none">
+          <h3>Joguinho: Adivinhe a palavra</h3>
+          <p class="muted">Dica: é curta e doce.</p>
+          <div class="row">
+            <input id="guess" placeholder="Digite a palavra" />
+            <button class="primary" onclick="checkGuess()">Tentar</button>
+          </div>
+          <div id="result" class="muted"></div>
+        </section>
       </div>
-    </div>
+    </main>
+
+    <footer class="foot">Feito com ♥ para Vitor &amp; Vithorya</footer>
   </div>
 
-  <!-- Modal viewer -->
   <div id="modal" class="modal" onclick="closeModal(event)">
-    <div class="viewer" onclick="event.stopPropagation()" id="viewerContent">
-      <div style="padding:12px;display:flex;justify-content:space-between;align-items:center">
-        <strong id="viewTitle"></strong>
-        <div>
-          <button class="btn" onclick="downloadCurrent()">Download</button>
-          <button class="btn" onclick="deleteCurrent()">Deletar</button>
-          <button class="btn" onclick="closeModal()">Fechar</button>
-        </div>
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div id="modal-body"></div>
+      <div class="row" style="margin-top:12px;">
+        <button class="primary" onclick="downloadModal()">Download</button>
+        <button onclick="closeModal()">Fechar</button>
       </div>
-      <div id="viewMedia" style="background:#000;min-height:320px;display:flex;align-items:center;justify-content:center"></div>
     </div>
   </div>
 
-  <script>
-    /* ========== Configuração inicial ========== */
-    const PASSWORD = '18/11'; // senha solicitada
-    const SECRET_WORD = 'AMOR'; // palavra do jogo
-    const STARS_COUNT = 5; // memórias
-    const AUDIO_PATH = '/mnt/data/the weeknd - earned it _tradução_legendado [RnaK6FTVa58].mp3';
-
-    // Elements
-    const pwdGate = document.getElementById('passwordGate');
-    const mainContent = document.getElementById('mainContent');
-    const pwdInput = document.getElementById('pwdInput');
-    const bgAudio = document.getElementById('bgAudio');
-
-    // On load: set audio src dynamically
-    bgAudio.querySelector('source').src = AUDIO_PATH;
-    bgAudio.load();
-
-    function checkPwd(){
-      const v = pwdInput.value.trim();
-      if(v === PASSWORD){
-        pwdGate.style.display='none';
-        mainContent.style.display='block';
-        // user interaction happened — allowed to play audio later
-        setTimeout(()=>{
-          // try to play silently, but browsers may block autoplay
-          try{ bgAudio.play().catch(()=>{}); }catch(e){}
-        },300);
-        loadAll();
-      } else {
-        alert('Senha incorreta. Tente novamente.');
-      }
-    }
-
-    function showSection(id){
-      document.querySelectorAll('section').forEach(s=>s.style.display='none');
-      const el = document.getElementById(id);
-      if(el) el.style.display='block';
-    }
-
-    /* ========== Random love phrases ========== */
-    const lovePool = [
-      'Seu sorriso muda meu dia.',
-      'Eu amo como você me entende.',
-      'Com você tudo fica mais simples.',
-      'Cada minuto com você vale ouro.',
-      'Você me inspira a ser melhor.'
-    ];
-    function randomLove(){
-      const txt = lovePool[Math.floor(Math.random()*lovePool.length)];
-      const el = document.getElementById('homePhrase');
-      el.textContent='';
-      let i=0; function type(){ if(i<txt.length){ el.textContent+=txt[i++]; setTimeout(type,40);} }
-      type();
-    }
-
-    /* ========== Dark mode ========== */
-    function toggleDark(on){
-      if(on){ document.documentElement.style.setProperty('--bg1','#151428'); document.documentElement.style.setProperty('--bg2','#0f1a2b'); document.documentElement.style.setProperty('--card','rgba(20,20,30,0.85)'); document.body.style.color='#eef2ff'; }
-      else { document.documentElement.style.setProperty('--bg1','#e9e6ff'); document.documentElement.style.setProperty('--bg2','#e6f0ff'); document.documentElement.style.setProperty('--card','rgba(255,255,255,0.9)'); document.body.style.color='#1b1b2f'; }
-    }
-
-    /* ========== Gallery logic (localStorage) ========== */
-    const galleryKey = 'nc_gallery_v1';
-    const timelineKey = 'nc_timeline_v1';
-    const letterKey = 'nc_letter_v1';
-    let currentViewIndex = null;
-
-    document.getElementById('fileInput').addEventListener('change', async (e)=>{
-      const files = Array.from(e.target.files).slice(0,12);
-      for(const f of files){
-        if(f.type.startsWith('image/') || f.type.startsWith('video/')){
-          const data = await fileToDataURL(f);
-          saveMedia({name:f.name,type:f.type,data});
-        }
-      }
-      renderGallery();
-      e.target.value = '';
-    });
-
-    function fileToDataURL(file){
-      return new Promise((res,rej)=>{
-        const r = new FileReader();
-        r.onload = ()=>res(r.result);
-        r.onerror = rej;
-        r.readAsDataURL(file);
-      })
-    }
-
-    function saveMedia(item){
-      const arr = JSON.parse(localStorage.getItem(galleryKey) || '[]');
-      arr.unshift({...item,id:Date.now()});
-      // limit to last 25 items to avoid huge localStorage usage
-      localStorage.setItem(galleryKey, JSON.stringify(arr.slice(0,25)));
-    }
-
-    function loadFromLocal(){ renderGallery(); }
-    function renderGallery(){
-      const grid = document.getElementById('galleryGrid'); grid.innerHTML='';
-      const arr = JSON.parse(localStorage.getItem(galleryKey) || '[]');
-      arr.forEach((m,idx)=>{
-        const div = document.createElement('div'); div.className='media-thumb';
-        div.dataset.index = idx;
-        if(m.type.startsWith('image/')){
-          const img = document.createElement('img'); img.src = m.data; div.appendChild(img);
-        } else {
-          const vid = document.createElement('video'); vid.src = m.data; vid.muted=true; vid.loop=true; vid.autoplay=true; div.appendChild(vid);
-        }
-        const actions = document.createElement('div'); actions.className='thumb-actions';
-        const viewBtn = document.createElement('button'); viewBtn.className='icon-btn'; viewBtn.textContent='Abrir'; viewBtn.onclick = ()=>openModal(idx);
-        actions.appendChild(viewBtn);
-        div.appendChild(actions);
-        grid.appendChild(div);
-      });
-    }
-
-    /* Modal viewer functions */
-    function openModal(idx){
-      const arr = JSON.parse(localStorage.getItem(galleryKey) || '[]');
-      const item = arr[idx];
-      if(!item) return;
-      currentViewIndex = idx;
-      document.getElementById('viewTitle').textContent = item.name || 'Mídia';
-      const box = document.getElementById('viewMedia'); box.innerHTML='';
-      if(item.type.startsWith('image/')){
-        const img = document.createElement('img'); img.src = item.data; img.style.maxHeight='70vh'; img.style.width='100%'; box.appendChild(img);
-      } else {
-        const v = document.createElement('video'); v.src=item.data; v.controls=true; v.style.maxHeight='70vh'; v.style.width='100%'; box.appendChild(v);
-      }
-      document.getElementById('modal').classList.add('show');
-    }
-    function closeModal(e){ document.getElementById('modal').classList.remove('show'); }
-    function downloadCurrent(){
-      const arr = JSON.parse(localStorage.getItem(galleryKey) || '[]'); const item = arr[currentViewIndex];
-      if(!item) return; const a=document.createElement('a'); a.href=item.data; a.download=item.name || 'media'; a.click();
-    }
-    function deleteCurrent(){
-      if(!confirm('Deseja remover esta mídia da galeria?')) return;
-      const arr = JSON.parse(localStorage.getItem(galleryKey) || '[]'); arr.splice(currentViewIndex,1); localStorage.setItem(galleryKey, JSON.stringify(arr)); renderGallery(); closeModal();
-    }
-    function clearGallery(){ if(confirm('Limpar toda a galeria local?')){ localStorage.removeItem(galleryKey); renderGallery(); }}
-
-    /* ========== Timeline ========== */
-    function loadTimeline(){
-      const arr = JSON.parse(localStorage.getItem(timelineKey) || '[]');
-      const list = document.getElementById('timelineList'); list.innerHTML='';
-      arr.forEach(ev=>{ const el=document.createElement('div'); el.className='event'; el.innerHTML=`<h4>${ev.title}</h4><small style="opacity:0.7">${ev.date||''}</small><p style="margin-top:6px">${ev.note||''}</p>`; list.appendChild(el); });
-    }
-    function addEvent(){ const txt = document.getElementById('eventText').value.trim(); if(!txt) return alert('Escreva algo.'); const arr = JSON.parse(localStorage.getItem(timelineKey) || '[]'); arr.unshift({title:txt,date:new Date().toLocaleDateString()}); localStorage.setItem(timelineKey,JSON.stringify(arr.slice(0,30))); document.getElementById('eventText').value=''; loadTimeline(); }
-
-    /* ========== Letter ========== */
-    function saveLetter(){ const t = document.getElementById('letterInput').value; localStorage.setItem(letterKey, t); renderLetter(); alert('Carta salva localmente.'); }
-    function renderLetter(){ const t = localStorage.getItem(letterKey) || 'Clique aqui para começar a ler a carta...'; document.getElementById('letterContent').textContent = t; }
-
-    /* Interactive particles in letter (basic) */
-    (function(){ const box = document.getElementById('letterBox'); box.addEventListener('mousemove', e=>{ const d=document.createElement('div'); d.style.position='absolute'; d.style.left=(e.clientX-20)+'px'; d.style.top=(e.clientY-20)+'px'; d.style.width='12px'; d.style.height='12px'; d.style.borderRadius='50%'; d.style.background='linear-gradient(45deg,#ffd1e6,#cbb5ff)'; d.style.opacity='0.9'; d.style.pointerEvents='none'; d.style.transform='translate(-50%,-50%)'; d.style.transition='all 800ms ease-out'; document.body.appendChild(d); setTimeout(()=>{ d.style.transform='translate(-50%,-120%) scale(0.3)'; d.style.opacity='0';},20); setTimeout(()=>d.remove(),900); });
-      box.addEventListener('click', ()=>{
-        const txt = localStorage.getItem(letterKey) || 'Escreva algo especial na caixa ao lado.';
-        alert(txt);
-      });
-    })();
-
-    /* ========== Stars (memories) ========== */
-    function renderStars(){
-      const wrap = document.getElementById('starsWrap'); wrap.innerHTML='';
-      const arr = JSON.parse(localStorage.getItem(timelineKey) || '[]');
-      for(let i=0;i<STARS_COUNT;i++){
-        const s = document.createElement('div'); s.className='star';
-        s.style.left = (10 + Math.random()*80)+'%'; s.style.top=(10 + Math.random()*70)+'%';
-        const mem = arr[i] || {title:'Nossa memória '+(i+1), note:'Um momento especial.'};
-        s.title = mem.title;
-        s.onclick = ()=>{ alert(mem.title + '\n\n' + (mem.note||'') + '\n\n' + (mem.date||'')); };
-        wrap.appendChild(s);
-      }
-    }
-
-    /* ========== Game logic ========== */
-    function checkGuess(){ const v = document.getElementById('guessInput').value.trim().toUpperCase(); const msg = document.getElementById('gameMsg'); if(!v) return; if(v===SECRET_WORD){ msg.textContent='Acertou! Surpresa chegando...'; celebrateAndReveal(); } else { msg.textContent='Quase... tente de novo.'; }}
-    function celebrateAndReveal(){
-      // animation + declaration (opção D)
-      confetti();
-      const modal = document.createElement('div'); modal.style.position='fixed'; modal.style.inset=0; modal.style.display='flex'; modal.style.alignItems='center'; modal.style.justifyContent='center'; modal.style.background='rgba(10,10,30,0.6)';
-      const card = document.createElement('div'); card.style.background='white'; card.style.borderRadius='16px'; card.style.padding='24px'; card.style.maxWidth='720px'; card.style.textAlign='center';
-      card.innerHTML = `<h2>Você acertou ❤️</h2><p style="opacity:0.9">Eu te amo hoje, amanhã e sempre. Obrigado por ser minha companhia e meu lar.</p><div style="margin-top:12px"><button class='btn' onclick='this.closest("div[style]").parentElement.remove()'>Fechar</button></div>`;
-      modal.appendChild(card); document.body.appendChild(modal);
-    }
-
-    // small confetti effect
-    function confetti(){ for(let i=0;i<60;i++){ const el=document.createElement('div'); el.style.position='fixed'; el.style.left=(Math.random()*100)+'%'; el.style.top='-10px'; el.style.width='8px'; el.style.height='14px'; el.style.background=['#f6b3d6','#b8a3ff','#7bdff6'][Math.floor(Math.random()*3)]; el.style.opacity='0.95'; el.style.transform='rotate('+ (Math.random()*360)+'deg)'; el.style.transition='all 1500ms linear'; document.body.appendChild(el); setTimeout(()=>{ el.style.top='110%'; el.style.left=(20+Math.random()*60)+'%'; el.style.opacity='0';},20); setTimeout(()=>el.remove(),1700); }
-    }
-
-    /* ========== Storage load ========== */
-    function loadAll(){ renderGallery(); loadTimeline(); renderLetter(); renderStars(); }
-
-    // initial default content if no timeline: preload a few items
-    (function initDefaults(){ const t = JSON.parse(localStorage.getItem(timelineKey) || 'null'); if(!t){ localStorage.setItem(timelineKey, JSON.stringify([
-      {title:'Nosso primeiro papo',date:'18/11',note:'Foi no Instagram e eu não parei mais de falar com você.'},
-      {title:'Primeiro encontro',date:'--/--',note:'Lembro do frio na barriga.'},
-      {title:'Nossa primeira viagem',date:'--/--',note:'A melhor aventura.'}
-    ])); }
-    })();
-
-    // small helpers for deployment demo
-    function playAudio(){ bgAudio.play().catch(()=>alert('Não foi possível reproduzir automaticamente. Clique no play no player.')); }
-
-    // kick off
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // nothing until password
-    });
-  </script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
