@@ -1,0 +1,4 @@
+
+body {background:#1a1a2e;color:#fff;font-family:Arial;margin:20px;}
+#gallery img, #gallery video {width:120px;margin:5px;border-radius:8px;}
+textarea {width:100%;height:120px;}

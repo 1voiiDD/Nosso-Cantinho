@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Nosso Cantinho</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div id="password-screen">
+  <h2>Digite a senha:</h2>
+  <input id="pass" type="password" placeholder="Senha">
+  <button onclick="checkPass()">Entrar</button>
+</div>
+<div id="main" style="display:none;">
+  <h1>Nosso Cantinho</h1>
+  <audio id="music" controls src="assets/media/Vitor_e_Vithorya.mp3"></audio>
+  <h2>Galeria</h2>
+  <input type="file" id="upload" multiple>
+  <div id="gallery"></div>
+  <h2>Carta</h2>
+  <textarea id="letter" placeholder="Escreva algo..."></textarea>
+  <button onclick="saveLetter()">Salvar carta</button>
+  <h2>Memórias</h2>
+  <ul id="mem-list"></ul>
+  <button onclick="addMemory()">Adicionar memória</button>
+  <h2>Jogo</h2>
+  <input id="guess" placeholder="Adivinhe a palavra">
+  <button onclick="playGame()">Enviar</button>
+  <p id="game-result"></p>
+</div>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
