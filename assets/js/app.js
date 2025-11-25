@@ -21,7 +21,7 @@ function unlock(){
     loadAll();
   } else alert('Senha incorreta.');
 }
-function openHint(){ alert('Dica: um dia especial — 18/11'); }
+function openHint(){ alert('Dica: Data da nossa primeira conversa.'); }
 function showSection(id){
   document.querySelectorAll('main .card').forEach(s=>s.style.display='none');
   const el = document.getElementById(id); if(el) el.style.display='block';
@@ -31,9 +31,9 @@ function showSection(id){
 const lovePool = [
   'Seu sorriso muda meu dia.',
   'Eu amo como você me entende.',
-  'Com você tudo fica mais simples.',
-  'Cada minuto com você vale ouro.',
-  'Você me inspira a ser melhor.'
+  'Meu amor por você é impossivel ser demonstrado por apenas palavras.',
+  'Cada conversa com você, eu me sinto mais vivo.',
+  'Você me faz feliz como ninguém antes fez.'
 ];
 let _typingCancel = null;
 function randomLove(){
