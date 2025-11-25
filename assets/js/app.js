@@ -184,10 +184,15 @@ function loadTimeline(){
 function addEvent(){ const t = $('evtext').value.trim(); if(!t) return alert('Escreva algo.'); const arr = JSON.parse(localStorage.getItem(timelineKey) || '[]'); arr.unshift({title:t,date:new Date().toLocaleDateString(),note:''}); localStorage.setItem(timelineKey, JSON.stringify(arr.slice(0,30))); $('evtext').value=''; loadTimeline(); }
 
 /* ----------------- LETTER ----------------- */
-function saveLetter(){ const t = $('letterInput').value; localStorage.setItem(letterKey,t); renderLetter(); alert('Carta salva localmente.'); }
-function renderLetter(){ const t = localStorage.getItem(letterKey) || 'Escreva sua carta...'; $('letterContent').textContent = t; }
-function revealLetter(){ const t = localStorage.getItem(letterKey) || 'Escreva sua carta...'; alert(t); }
-function clearLetter(){ localStorage.removeItem(letterKey); renderLetter(); }
+// --- CARTA FIXA (SEM LOCALSTORAGE) ---
+
+function revealLetter() {
+    const content = document.getElementById("letterContent").innerHTML;
+    
+    // Mostra a carta em um alert bonito ou abre em modal se quiser futuramente
+    alert(content.replace(/<[^>]+>/g, '')); // remove tags HTML para alert
+}
+
 
 /* ----------------- HIGHLIGHTS (substitui o céu das memórias) ----------------- */
 /* Mostra até 5 memórias da timeline com imagem, se houver.
