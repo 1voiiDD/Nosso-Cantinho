@@ -1,7 +1,7 @@
 [
   { "name": "namorado1.jpg", "type": "image/jpeg", "path": "assets/media/namorado1.jpg" },
   { "name": "namorada1.jpg", "type": "image/jpeg", "path": "assets/media/namorada1.jpg" },
-  { "name": "fotocarta1.jpg", "type": "image/jpeg", "path": "assets/media/fotocarta1.jpg" },
-  { "name": "fotocarta2.jpg", "type": "image/jpeg", "path": "assets/media/fotocarta2.jpg" },
+  { "name": "carta1.jpg", "type": "image/jpeg", "path": "assets/media/carta1.jpg" },
+  { "name": "carta2.jpg", "type": "image/jpeg", "path": "assets/media/carta2.jpg" },
   { "name": "cartavideo.mp4",  "type": "video/mp4",  "path": "assets/media/cartavideo.mp4" }
 ]
