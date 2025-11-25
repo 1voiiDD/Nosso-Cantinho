@@ -1,9 +1,17 @@
 /* --------------------------------------------------
-   APP.JS — VERSÃO LIMPA (SEM UPLOAD / SEM TIMELINE LOCAL)
+   APP.JS — VERSÃO FINAL COMPATÍVEL COM O SEU HTML
 -------------------------------------------------- */
 
 const PASSWORD = "18/11";
 function $(id){ return document.getElementById(id); }
+
+/* ----------- SHOW SECTION ----------- */
+function showSection(id){
+  document.querySelectorAll("main .card").forEach(sec => {
+    sec.style.display = "none";
+  });
+  $(id).style.display = "block";
+}
 
 /* ----------- PASSWORD ----------- */
 function unlock(){
@@ -64,8 +72,7 @@ function randomLove(){
   type();
 }
 
-/* ----------- GALERIA (AGORA SOMENTE ESTÁTICA) ----------- */
-
+/* ----------- GALERIA (MANIFEST APENAS) ----------- */
 const staticManifestPath = "assets/media/manifest.json";
 
 async function loadStaticManifest(){
@@ -113,37 +120,32 @@ async function renderGallery(){
   });
 }
 
-/* ----------- CARTA (APENAS LEITURA, FIXA NO HTML) ----------- */
-
+/* ----------- CARTA ----------- */
 function revealLetter(){
   const content = document.getElementById("letterContent").innerHTML;
   alert(content.replace(/<[^>]+>/g, ""));
 }
 
-/* ----------- TIMELINE (AGORA SOMENTE FIXA NO HTML) ----------- */
-
+/* ----------- TIMELINE FIXA (sem JS) ----------- */
 function loadTimeline(){
-  // não faz nada → timeline fixa no HTML
+  // Nada — timeline totalmente fixa no HTML
 }
 
-/* ----------- MEMÓRIAS EM DESTAQUE (FIXAS) ----------- */
-
+/* ----------- MEMÓRIAS EM DESTAQUE ----------- */
 async function renderHighlights(){
-  // você vai preencher direto no HTML também
   const wrap = $('highlightsWrap');
   wrap.innerHTML = `
     <div class="item">
       <div class="highlight-img" style="background-image:url('assets/media/mem1.jpg')"></div>
       <div class="highlight-text">
         <strong>Primeira conversa</strong>
-        <div class="muted">18/11/2024</div>
+        <div class="muted">18/11/2025</div>
       </div>
     </div>
   `;
 }
 
-/* ----------- FORCA (mantido) ----------- */
-
+/* ----------- FORCA ----------- */
 const HANGMAN_WORDS = [
   "AMOR","VIAGEM","BEIJO","SAUDADE","SORRISO",
   "CORACAO","NOITE","ABRACO","PARAISO","SONHO"
