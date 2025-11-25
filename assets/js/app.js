@@ -19,9 +19,9 @@ function unlock(){
     $('app').style.display='block';
     tryPlayAudio();
     loadAll();
-  } else alert('Senha incorreta.');
+  } else alert('Senha incorreta, tenta denovo amorzinho :D');
 }
-function openHint(){ alert('Dica: um dia especial — 18/11'); }
+function openHint(){ alert('Dica: Data da nossa primeira conversa'); }
 function showSection(id){
   document.querySelectorAll('main .card').forEach(s=>s.style.display='none');
   const el = document.getElementById(id); if(el) el.style.display='block';
