@@ -199,11 +199,35 @@ function addEvent(){
 }
 
 
-/* ----------------- LETTER ----------------- */
-function saveLetter(){ const t = $('letterInput').value; localStorage.setItem(letterKey,t); renderLetter(); alert('Carta salva localmente.'); }
-function renderLetter(){ const t = localStorage.getItem(letterKey) || 'Escreva sua carta...'; $('letterContent').textContent = t; }
-function revealLetter(){ const t = localStorage.getItem(letterKey) || 'Escreva sua carta...'; alert(t); }
-function clearLetter(){ localStorage.removeItem(letterKey); renderLetter(); }
+/* ----------------- CARTA FIXA ----------------- */
+const publicLetter = `
+Meu amor,
+
+Este cantinho foi feito especialmente para você. 
+Aqui estão nossas memórias, nosso carinho e um pouco do quanto você significa para mim.
+
+Obrigado por fazer parte da minha vida.
+
+Com amor,  
+Vitor 💗
+`;
+
+function saveLetter(){
+  alert("A carta agora é fixa e não pode ser alterada 💗");
+}
+
+function renderLetter(){
+  $('letterContent').textContent = publicLetter.trim();
+}
+
+function revealLetter(){
+  alert(publicLetter.trim());
+}
+
+function clearLetter(){
+  alert("A carta fixa não pode ser apagada 💗");
+}
+
 
 /* ----------------- HIGHLIGHTS (substitui o céu das memórias) ----------------- */
 /* Mostra até 5 memórias da timeline com imagem, se houver.
