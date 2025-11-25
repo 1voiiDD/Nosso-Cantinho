@@ -176,12 +176,28 @@ async function exportGalleryZip(){
   alert('Foram iniciados downloads das mídias locais. Para compartilhar a galeria permanentemente, envie os arquivos para assets/media/ e atualize assets/media/manifest.json');
 }
 
-/* ----------------- TIMELINE ----------------- */
+/* ----------------- TIMELINE (fixa para todos) ----------------- */
+const publicTimeline = [
+  { title: "Primeira conversa", date: "18/11/2025", note: "" },
+  { title: "Primeira eu te amo", date: "18/11/2025", note: "" },
+  { title: "A primeira cartinha especial", date: "20/11/2025", note: "" }
+];
+
 function loadTimeline(){
-  const arr = JSON.parse(localStorage.getItem(timelineKey) || '[]'); const list = $('timelineList'); list.innerHTML='';
-  arr.forEach(ev=>{ const el=document.createElement('div'); el.className='event'; el.innerHTML = `<strong>${ev.title}</strong><div class="muted">${ev.date||''}</div><p>${ev.note||''}</p>`; list.appendChild(el); });
+  const list = $('timelineList');
+  list.innerHTML = '';
+  publicTimeline.forEach(ev=>{
+    const el = document.createElement('div');
+    el.className='event';
+    el.innerHTML = `<strong>${ev.title}</strong><div class="muted">${ev.date}</div>`;
+    list.appendChild(el);
+  });
 }
-function addEvent(){ const t = $('evtext').value.trim(); if(!t) return alert('Escreva algo.'); const arr = JSON.parse(localStorage.getItem(timelineKey) || '[]'); arr.unshift({title:t,date:new Date().toLocaleDateString(),note:''}); localStorage.setItem(timelineKey, JSON.stringify(arr.slice(0,30))); $('evtext').value=''; loadTimeline(); }
+
+function addEvent(){
+  alert("A linha do tempo agora é fixa e não pode ser alterada 💗");
+}
+
 
 /* ----------------- LETTER ----------------- */
 function saveLetter(){ const t = $('letterInput').value; localStorage.setItem(letterKey,t); renderLetter(); alert('Carta salva localmente.'); }
