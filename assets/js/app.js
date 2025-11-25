@@ -305,5 +305,5 @@ function closeModal(e){ $('modal').classList.remove('show'); }
 function downloadModal(){ const arr = JSON.parse(localStorage.getItem(galleryKey) || '[]'); const item = arr[currentIdx]; if(!item) return; const a = document.createElement('a'); a.href = item.data; a.download = item.name || 'media'; a.click(); }
 
 /* ----------------- LOAD ALL ----------------- */
-function loadAll(){ renderGallery(); loadTimeline(); renderLetter(); renderHighlights(); }
+function loadAll(){ renderGallery(); loadTimeline(); renderHighlights(); }
 window.addEventListener('DOMContentLoaded', ()=>{ /* nothing until unlock */ });
