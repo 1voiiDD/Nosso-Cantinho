@@ -1,5 +1,3 @@
-codigo inteiro do app.js 
-
 /* App script atualizado - correções e novos recursos */
 const PASSWORD = "18/11";
 const SECRET = "AMOR";
@@ -21,9 +19,9 @@ function unlock(){
     $('app').style.display='block';
     tryPlayAudio();
     loadAll();
-  } else alert('Senha errada, eu sei que você sabe... Vai amorzinho!');
+  } else alert('Senha incorreta.');
 }
-function openHint(){ alert('Dica: Data da nossa primeira conversa.'); }
+function openHint(){ alert('Dica: um dia especial — 18/11'); }
 function showSection(id){
   document.querySelectorAll('main .card').forEach(s=>s.style.display='none');
   const el = document.getElementById(id); if(el) el.style.display='block';
@@ -33,9 +31,9 @@ function showSection(id){
 const lovePool = [
   'Seu sorriso muda meu dia.',
   'Eu amo como você me entende.',
-  'Meu amor por você é impossivel ser demonstrado por apenas palavras.',
-  'Cada conversa com você, eu me sinto mais vivo.',
-  'Você me faz feliz como ninguém antes fez.'
+  'Com você tudo fica mais simples.',
+  'Cada minuto com você vale ouro.',
+  'Você me inspira a ser melhor.'
 ];
 let _typingCancel = null;
 function randomLove(){
@@ -186,15 +184,10 @@ function loadTimeline(){
 function addEvent(){ const t = $('evtext').value.trim(); if(!t) return alert('Escreva algo.'); const arr = JSON.parse(localStorage.getItem(timelineKey) || '[]'); arr.unshift({title:t,date:new Date().toLocaleDateString(),note:''}); localStorage.setItem(timelineKey, JSON.stringify(arr.slice(0,30))); $('evtext').value=''; loadTimeline(); }
 
 /* ----------------- LETTER ----------------- */
-// --- CARTA FIXA (SEM LOCALSTORAGE) ---
-
-function revealLetter() {
-    const content = document.getElementById("letterContent").innerHTML;
-    
-    // Mostra a carta em um alert bonito ou abre em modal se quiser futuramente
-    alert(content.replace(/<[^>]+>/g, '')); // remove tags HTML para alert
-}
-
+function saveLetter(){ const t = $('letterInput').value; localStorage.setItem(letterKey,t); renderLetter(); alert('Carta salva localmente.'); }
+function renderLetter(){ const t = localStorage.getItem(letterKey) || 'Escreva sua carta...'; $('letterContent').textContent = t; }
+function revealLetter(){ const t = localStorage.getItem(letterKey) || 'Escreva sua carta...'; alert(t); }
+function clearLetter(){ localStorage.removeItem(letterKey); renderLetter(); }
 
 /* ----------------- HIGHLIGHTS (substitui o céu das memórias) ----------------- */
 /* Mostra até 5 memórias da timeline com imagem, se houver.
@@ -305,5 +298,5 @@ function closeModal(e){ $('modal').classList.remove('show'); }
 function downloadModal(){ const arr = JSON.parse(localStorage.getItem(galleryKey) || '[]'); const item = arr[currentIdx]; if(!item) return; const a = document.createElement('a'); a.href = item.data; a.download = item.name || 'media'; a.click(); }
 
 /* ----------------- LOAD ALL ----------------- */
-function loadAll(){ renderGallery(); loadTimeline(); renderHighlights(); }
+function loadAll(){ renderGallery(); loadTimeline(); renderLetter(); renderHighlights(); }
 window.addEventListener('DOMContentLoaded', ()=>{ /* nothing until unlock */ });
