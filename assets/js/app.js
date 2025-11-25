@@ -19,7 +19,7 @@ function unlock(){
     $('app').style.display='block';
     tryPlayAudio();
     loadAll();
-  } else alert('Senha incorreta.');
+  } else alert('Senha errada, eu sei que você sabe... Vai amorzinho!');
 }
 function openHint(){ alert('Dica: Data da nossa primeira conversa.'); }
 function showSection(id){
